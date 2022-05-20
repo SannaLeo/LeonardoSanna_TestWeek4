@@ -32,6 +32,25 @@ namespace LeonardoSanna_TestWeek4.Core.BusinessLayer
             }
         }
 
+        public bool AggiungiCategoria(Categoria nuovaSpesa)
+        {
+            
+            if (nuovaSpesa == null)
+            {
+                Console.WriteLine("Categoria non valida ripsrovare");
+                return false;
+            }
+            else
+            {
+                return categoriaRepo.Add(nuovaSpesa);
+            }
+        }
+
+        public Categoria GetCategoriaById(int id)
+        {
+            return categoriaRepo.GetCategoriaById(id);
+        }
+
         public bool ApprovaSpesa(int Id)
         {
             Spesa spesa = spesaRepo.GetSpesaById(Id);
@@ -80,12 +99,12 @@ namespace LeonardoSanna_TestWeek4.Core.BusinessLayer
 
         public List<Object> GetAllTotaliForEachCategoria()
         {
-            //var res = spesaRepo.GetAll().GroupBy(s => s.CategoriaId).Select(a => new { Id = a.Key, Categoria = a., Totale = a.Sum(b => b.Importo) }).ToList();
-            var res = new List<Object>();  
-            //var res = spesaRepo.GetAll().GroupBy(v => v.Categoria.NomeCategoria, (key, grp) => new{Categoria = key, Totale = grp.Sum(v => v.Importo)});
+            var res = spesaRepo.GetAll().GroupBy(v => v.CategoriaId, (key, grp) => new{Categoria = key, Totale = grp.Sum(v => v.Importo)});
             foreach (var item in res)
             {
-                //Console.WriteLine($"Nome: {item.Categoria} - Totale: {item.Totale}"); 
+                string nome;
+                nome = GetCategoriaById(item.Categoria).NomeCategoria;
+                Console.WriteLine($"Nome: {nome} - Totale: {item.Totale}"); 
             }
             return new List<Object>();
         }

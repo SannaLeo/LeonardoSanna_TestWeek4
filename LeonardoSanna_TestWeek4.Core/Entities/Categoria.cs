@@ -13,5 +13,10 @@ namespace LeonardoSanna_TestWeek4.Core.Entities
         public string NomeCategoria{ get; set; }
 
         public ICollection<Spesa> Spese { get; set; }
+
+        public override string ToString()
+        {
+            return $"{NomeCategoria}";
+        }
     }
 }

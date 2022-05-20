@@ -23,7 +23,7 @@ namespace LeonardoSanna_TestWeek4.Core.Entities
 
         public override string ToString()
         {
-            return $"Id:{Id} - Data: {Data.ToShortDateString} Categoria: {Categoria.ToString()} Descrizione: {Descrizione} - Utente: {Utente} - Importo: {Importo} - Approvato: {(Approvato ? "Si" : "No")}";
+            return $"Id:{Id} - Data: {Data.ToShortDateString()} Categoria: {Categoria.ToString()} Descrizione: {Descrizione} - Utente: {Utente} - Importo: {Importo} - Approvato: {(Approvato ? "Si" : "No")}";
         }
     }
 }

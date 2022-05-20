@@ -29,6 +29,7 @@ namespace LeonardoSanna_TestWeek4Presentation
                 Console.WriteLine("4. Mostra le spese approvate");
                 Console.WriteLine("5. Mostra le spese di un utente");
                 Console.WriteLine("6. Mostra il totale delle spese per ogni categoria");
+                Console.WriteLine("7. Categoria");
                 Console.WriteLine("0. Esci");
                 while (!int.TryParse(Console.ReadLine(), out scelta))
                 {
@@ -65,6 +66,10 @@ namespace LeonardoSanna_TestWeek4Presentation
                         Console.Clear();
                         StampaTotaliSpesePerCategoria();
                         break;
+                    case 7:
+                        Console.Clear();
+                        InserisciCategoria();
+                        break;
                     default:
                         Console.Clear();
                         Console.WriteLine("Scelta non consentita, riprova");
@@ -96,7 +101,7 @@ namespace LeonardoSanna_TestWeek4Presentation
         }
 
         private static void InserisciSpesa()
-        { 
+        {
             string descrizione, utente;
             int categoria;
             double importo;
@@ -141,9 +146,41 @@ namespace LeonardoSanna_TestWeek4Presentation
             nuovaSpesa.Utente = utente;
             nuovaSpesa.Approvato = approvato;
             nuovaSpesa.CategoriaId = categoria;
+            //nuovaSpesa.Categoria = bl.GetCategoriaById(categoria);
             nuovaSpesa.Importo = decimal.Parse(importo.ToString());
 
             if (bl.AggiungiSpesa(nuovaSpesa))
+            {
+                Console.WriteLine("Spesa aggiunta correttamente!");
+            }
+            else
+            {
+                Console.WriteLine("Spesa non aggiunta!");
+            }
+        }
+
+
+
+        private static void InserisciCategoria()
+        {
+            string descrizione;
+            int categoria;
+            
+
+            Console.WriteLine("Inserisci il nome della categoria");
+            do
+            {
+                descrizione = Console.ReadLine();
+            } while (string.IsNullOrEmpty(descrizione));
+
+           
+            
+
+            Categoria nuovaSpesa = new Categoria();
+            nuovaSpesa.NomeCategoria = descrizione;
+            
+
+            if (bl.AggiungiCategoria(nuovaSpesa))
             {
                 Console.WriteLine("Spesa aggiunta correttamente!");
             }
@@ -159,6 +196,7 @@ namespace LeonardoSanna_TestWeek4Presentation
             List<Spesa> speseApprovate = bl.GetAllSpeseApprovate();
             foreach (Spesa spesa in speseApprovate)
             {
+                spesa.Categoria = bl.GetCategoriaById(spesa.CategoriaId);
                 Console.WriteLine(spesa);
             }
         }

@@ -24,6 +24,8 @@ namespace LeonardoSanna_TestWeek4.RepositoryADOEF
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException);
+                
                 return false;
             }
         }
